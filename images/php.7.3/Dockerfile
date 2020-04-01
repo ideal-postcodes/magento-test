@@ -25,7 +25,9 @@ RUN requirements="libpng++-dev libzip-dev libmcrypt-dev libmcrypt4 libcurl3-dev 
     && docker-php-ext-install bcmath \
     && docker-php-ext-install sockets
 
-RUN yes '' | pecl install mcrypt-1.0.3 \
+RUN apt-get update \
+    && apt-get install -y wget \
+    && yes '' | pecl install mcrypt-1.0.3 \
     && echo 'extension=mcrypt.so' > /usr/local/etc/php/conf.d/mcrypt.ini
 
 RUN chsh -s /bin/bash www-data
