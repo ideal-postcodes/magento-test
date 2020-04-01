@@ -6,7 +6,6 @@ LABEL description="Magento 2.2.6 with PHP 7.1.24"
 
 ENV MAGENTO_VERSION 2.2.6
 ENV INSTALL_DIR /var/www/html
-ENV COMPOSER_HOME /var/www/.composer/
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
