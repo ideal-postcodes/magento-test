@@ -1,10 +1,10 @@
-FROM quay.io/alexcheng1982/apache2-php7:7.1.24
+FROM quay.io/alexcheng1982/apache2-php7:7.3.12
 
-LABEL php_version="7.1.24"
-LABEL magento_version="2.2.6"
-LABEL description="Magento 2.2.6 with PHP 7.1.24"
+LABEL php_version="7.3.12"
+LABEL magento_version="2.3.4"
+LABEL description="Magento 2.3.4 with PHP 7.3.12"
 
-ENV MAGENTO_VERSION 2.2.6
+ENV MAGENTO_VERSION 2.3.4
 ENV INSTALL_DIR /var/www/html
 
 RUN curl -sS https://getcomposer.org/installer | php \
@@ -17,19 +17,18 @@ RUN requirements="libpng++-dev libzip-dev libmcrypt-dev libmcrypt4 libcurl3-dev 
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd \
-    && docker-php-ext-install mcrypt \
     && docker-php-ext-install mbstring \
     && docker-php-ext-install zip \
     && docker-php-ext-install intl \
     && docker-php-ext-install xsl \
     && docker-php-ext-install soap \
     && docker-php-ext-install bcmath \
-    && requirementsToRemove="libpng12-dev libmcrypt-dev libcurl3-dev libpng12-dev libfreetype6-dev libjpeg-turbo8-dev" \
-    && apt-get purge --auto-remove -y $requirementsToRemove
+    && docker-php-ext-install sockets
 
 RUN apt-get update \
     && apt-get install -y wget \
-    && apt-get install -y libmcrypt-dev
+    && yes '' | pecl install mcrypt-1.0.3 \
+    && echo 'extension=mcrypt.so' > /usr/local/etc/php/conf.d/mcrypt.ini
 
 RUN chsh -s /bin/bash www-data
 
@@ -64,5 +63,9 @@ RUN curl -O https://download.libsodium.org/libsodium/releases/libsodium-1.0.18.t
     && ./configure \
     && make && make install \
     && pecl install -f libsodium
+
+# Include test install script
+COPY ./install-magento /usr/local/bin/install-magento
+RUN chmod u+x /usr/local/bin/install-magento
 
 WORKDIR $INSTALL_DIR

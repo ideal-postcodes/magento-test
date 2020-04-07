@@ -1,10 +1,10 @@
-FROM quay.io/alexcheng1982/apache2-php7:7.3.12
+FROM quay.io/alexcheng1982/apache2-php7:7.2.25
 
-LABEL php_version="7.3.12"
-LABEL magento_version="2.3.4"
-LABEL description="Magento 2.3.4 with PHP 7.3.12"
+LABEL php_version="7.2.12"
+LABEL magento_version="2.3.2"
+LABEL description="Magento 2.3.2 with PHP 7.2.12"
 
-ENV MAGENTO_VERSION 2.3.4
+ENV MAGENTO_VERSION 2.3.2
 ENV INSTALL_DIR /var/www/html
 
 RUN curl -sS https://getcomposer.org/installer | php \
@@ -22,12 +22,12 @@ RUN requirements="libpng++-dev libzip-dev libmcrypt-dev libmcrypt4 libcurl3-dev 
     && docker-php-ext-install intl \
     && docker-php-ext-install xsl \
     && docker-php-ext-install soap \
-    && docker-php-ext-install bcmath \
-    && docker-php-ext-install sockets
+    && docker-php-ext-install bcmath
 
 RUN apt-get update \
     && apt-get install -y wget \
-    && yes '' | pecl install mcrypt-1.0.3 \
+    && apt-get install -y libmcrypt-dev \
+    && yes '' | pecl install mcrypt-1.0.1 \
     && echo 'extension=mcrypt.so' > /usr/local/etc/php/conf.d/mcrypt.ini
 
 RUN chsh -s /bin/bash www-data
@@ -63,5 +63,9 @@ RUN curl -O https://download.libsodium.org/libsodium/releases/libsodium-1.0.18.t
     && ./configure \
     && make && make install \
     && pecl install -f libsodium
+
+# Include test install script
+COPY ./install-magento /usr/local/bin/install-magento
+RUN chmod u+x /usr/local/bin/install-magento
 
 WORKDIR $INSTALL_DIR
