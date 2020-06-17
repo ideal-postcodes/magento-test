@@ -10,12 +10,18 @@ This repository stores dockerfiles to build test magento images for [ideal-postc
 
 ## Usage
 
-Build images
+### Build Docker Images
 
 ```bash
 make build-71
 make build-72
 make build-73
+```
+
+### Incoporate into Dockerfile
+
+```Dockerfile
+FROM idealpostcodes/magento-test:m2.3-php7.2
 ```
 
 ## Licence
