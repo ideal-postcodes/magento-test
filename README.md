@@ -16,6 +16,7 @@ This repository stores dockerfiles to build test magento images for [ideal-postc
 make build-71
 make build-72
 make build-73
+make build-73-m24
 ```
 
 ### Incoporate into Dockerfile

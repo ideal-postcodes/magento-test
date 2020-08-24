@@ -36,6 +36,16 @@ build-73:
 publish-73:
 	docker push idealpostcodes/magento-test:m2.3-php7.3
 
+## Build Magento 2.3 on PHP 7.3
+.PHONY: build-73-m24
+build-73-m24:
+	docker build -f php.7.3/Dockerfile-m2.4 -t idealpostcodes/magento-test:m2.4-php7.3 .
+
+## Publish Magento 2.3 on PHP 7.3
+.PHONY: publish-73-m24
+publish-73-m24:
+	docker push idealpostcodes/magento-test:m2.4-php7.3
+
 ## Update repository against origin/master
 .PHONY: update
 update:
