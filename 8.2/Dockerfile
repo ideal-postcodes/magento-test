@@ -1,10 +1,10 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 
-LABEL php_version="8.1.0"
-LABEL magento_version="2.4.4-p3"
-LABEL description="Magento 2.4.4-p3 with PHP 8.1.0"
+LABEL php_version="8.2.0"
+LABEL magento_version="2.4.6-p3"
+LABEL description="Magento 2.4.6-p3 with PHP 8.2.0"
 
-ENV MAGENTO_VERSION 2.4.4-p3
+ENV MAGENTO_VERSION 2.4.6-p3
 ENV INSTALL_DIR /var/www/html
 
 RUN curl -sS https://getcomposer.org/installer | php \

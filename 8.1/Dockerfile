@@ -1,23 +1,22 @@
-FROM quay.io/alexcheng1982/apache2-php7:7.3.12
+FROM php:8.1-apache
 
-LABEL php_version="7.3.12"
-LABEL magento_version="2.4.3"
-LABEL description="Magento 2.4.0 with PHP 7.3.12"
+LABEL php_version="8.1.0"
+LABEL magento_version="2.4.4-p3"
+LABEL description="Magento 2.4.4-p3 with PHP 8.1.0"
 
-ENV MAGENTO_VERSION 2.4.3
+ENV MAGENTO_VERSION 2.4.4-p3
 ENV INSTALL_DIR /var/www/html
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
-
-RUN requirements="libpng++-dev libzip-dev libmcrypt-dev libmcrypt4 libcurl3-dev libfreetype6 libjpeg-turbo8 libjpeg-turbo8-dev libfreetype6-dev libicu-dev libxslt1-dev unzip" \
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN requirements="apache2 apt-utils libpng++-dev libzip-dev libmcrypt-dev libmcrypt4 libcurl3-dev libfreetype6 libjpeg62-turbo libjpeg62-turbo-dev libfreetype6-dev libicu-dev libxslt1-dev libonig-dev unzip" \
     && apt-get update \
     && apt-get install -y $requirements \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
-    && docker-php-ext-install mbstring \
     && docker-php-ext-install zip \
     && docker-php-ext-install intl \
     && docker-php-ext-install xsl \
@@ -27,7 +26,7 @@ RUN requirements="libpng++-dev libzip-dev libmcrypt-dev libmcrypt4 libcurl3-dev 
 
 RUN apt-get update \
     && apt-get install -y wget \
-    && yes '' | pecl install mcrypt-1.0.3 \
+    && yes '' | pecl install mcrypt-1.0.6 \
     && echo 'extension=mcrypt.so' > /usr/local/etc/php/conf.d/mcrypt.ini
 
 RUN chsh -s /bin/bash www-data
@@ -65,7 +64,9 @@ RUN curl -O https://download.libsodium.org/libsodium/releases/libsodium-1.0.18.t
     && pecl install -f libsodium
 
 # Include test install script
-COPY ./install-magento /usr/local/bin/install-magento
+COPY ../install-magento /usr/local/bin/install-magento
 RUN chmod u+x /usr/local/bin/install-magento
 
 WORKDIR $INSTALL_DIR
+
+
