@@ -20,6 +20,16 @@ build-82:
 publish-82:
 	docker push idealpostcodes/magento-test:m2.4.6-php8.2
 
+## Build Magento 2.4.7 on PHP 8.2
+.PHONY: build-247
+build-247:
+	docker build -f 2.4.7/Dockerfile -t idealpostcodes/magento-test:m2.4.7 .
+
+## Publish Magento 2.4.6 on PHP 8.2
+.PHONY: publish-247
+publish-247:
+	docker push idealpostcodes/magento-test:m2.4.7
+
 ## Update repository against origin/master
 .PHONY: update
 update:
