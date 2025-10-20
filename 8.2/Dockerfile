@@ -60,8 +60,7 @@ RUN curl -O https://download.libsodium.org/libsodium/releases/libsodium-1.0.18.t
     && tar xfvz libsodium-1.0.18.tar.gz \
     && cd libsodium-1.0.18 \
     && ./configure \
-    && make && make install \
-    && pecl install -f libsodium
+    && make && make install
 
 # Include test install script
 COPY ./install-magento /usr/local/bin/install-magento
