@@ -3,7 +3,7 @@
 ## Build Magento 2.4.4 on PHP 7.4
 .PHONY: build-81
 build-81:
-	docker build -f 8.1/Dockerfile -t idealpostcodes/magento-test:m2.4-php8.1 .
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 8.1/Dockerfile -t idealpostcodes/magento-test:m2.4-php8.1 .
 
 ## Publish Magento 2.4.4 on PHP 7.4
 .PHONY: publish-81
@@ -13,7 +13,7 @@ publish-81:
 ## Build Magento 2.4.6 on PHP 8.2
 .PHONY: build-82
 build-82:
-	docker build -f 8.2/Dockerfile -t idealpostcodes/magento-test:m2.4.6-php8.2 .
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 8.2/Dockerfile -t idealpostcodes/magento-test:m2.4.6-php8.2 .
 
 ## Publish Magento 2.4.6 on PHP 8.2
 .PHONY: publish-82
@@ -23,7 +23,7 @@ publish-82:
 ## Build Magento 2.4.7 on PHP 8.2
 .PHONY: build-247
 build-247:
-	docker build -f 2.4.7/Dockerfile -t idealpostcodes/magento-test:m2.4.7 .
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 2.4.7/Dockerfile -t idealpostcodes/magento-test:m2.4.7 .
 
 ## Publish Magento 2.4.7 on PHP 8.2
 .PHONY: publish-247
@@ -33,7 +33,7 @@ publish-247:
 ## Build Magento 2.4.7-p5 on PHP 8.3
 .PHONY: build-247-p5
 build-247-p5:
-	docker build -f 2.4.7-p5/Dockerfile -t idealpostcodes/magento-test:m2.4.7-p5 .
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 2.4.7-p5/Dockerfile -t idealpostcodes/magento-test:m2.4.7-p5 .
 
 ## Publish Magento 2.4.7-p5 on PHP 8.3
 .PHONY: publish-247-p5
@@ -43,7 +43,7 @@ publish-247-p5:
 ## Build Magento 2.4.8 on PHP 8.4
 .PHONY: build-84
 build-84:
-	docker build -f 8.4/Dockerfile -t idealpostcodes/magento-test:m2.4.8-php8.4 .
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 8.4/Dockerfile -t idealpostcodes/magento-test:m2.4.8-php8.4 .
 
 ## Publish Magento 2.4.8 on PHP 8.4
 .PHONY: publish-84
