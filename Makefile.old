@@ -1,0 +1,94 @@
+.DEFAULT_GOAL := help
+
+## Build Magento 2.4.4 on PHP 7.4
+.PHONY: build-81
+build-81:
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 8.1/Dockerfile -t idealpostcodes/magento-test:m2.4-php8.1 .
+
+## Publish Magento 2.4.4 on PHP 7.4
+.PHONY: publish-81
+publish-81:
+	docker push idealpostcodes/magento-test:m2.4-php8.1
+
+## Build Magento 2.4.6 on PHP 8.2
+.PHONY: build-82
+build-82:
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 8.2/Dockerfile -t idealpostcodes/magento-test:m2.4.6-php8.2 .
+
+## Publish Magento 2.4.6 on PHP 8.2
+.PHONY: publish-82
+publish-82:
+	docker push idealpostcodes/magento-test:m2.4.6-php8.2
+
+## Build Magento 2.4.7 on PHP 8.2
+.PHONY: build-247
+build-247:
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 2.4.7/Dockerfile -t idealpostcodes/magento-test:m2.4.7 .
+
+## Publish Magento 2.4.7 on PHP 8.2
+.PHONY: publish-247
+publish-247:
+	docker push idealpostcodes/magento-test:m2.4.7
+
+## Build Magento 2.4.7-p5 on PHP 8.3
+.PHONY: build-247-p5
+build-247-p5:
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 2.4.7-p5/Dockerfile -t idealpostcodes/magento-test:m2.4.7-p5 .
+
+## Publish Magento 2.4.7-p5 on PHP 8.3
+.PHONY: publish-247-p5
+publish-247-p5:
+	docker push idealpostcodes/magento-test:m2.4.7-p5
+
+## Build Magento 2.4.8 on PHP 8.4
+.PHONY: build-84
+build-84:
+	docker buildx build --platform=linux/amd64,linux/arm64,linux/arm/v7 -f 8.4/Dockerfile -t idealpostcodes/magento-test:m2.4.8-php8.4 .
+
+## Publish Magento 2.4.8 on PHP 8.4
+.PHONY: publish-84
+publish-84:
+	docker push idealpostcodes/magento-test:m2.4.8-php8.4
+
+## Update repository against origin/master
+.PHONY: update
+update:
+	git fetch
+	git merge --ff-only origin/master
+
+## -- Misc --
+
+## How to use this Makefile
+.PHONY: help
+help:
+	@printf "Usage\n";
+
+	@awk '{ \
+			if ($$0 ~ /^.PHONY: [a-zA-Z\-\_0-9]+$$/) { \
+				helpCommand = substr($$0, index($$0, ":") + 2); \
+				if (helpMessage) { \
+					printf "\033[36m%-20s\033[0m %s\n", \
+						helpCommand, helpMessage; \
+					helpMessage = ""; \
+				} \
+			} else if ($$0 ~ /^[a-zA-Z\-\_0-9.]+:/) { \
+				helpCommand = substr($$0, 0, index($$0, ":")); \
+				if (helpMessage) { \
+					printf "\033[36m%-20s\033[0m %s\n", \
+						helpCommand, helpMessage; \
+					helpMessage = ""; \
+				} \
+			} else if ($$0 ~ /^##/) { \
+				if (helpMessage) { \
+					helpMessage = helpMessage"\n                     "substr($$0, 3); \
+				} else { \
+					helpMessage = substr($$0, 3); \
+				} \
+			} else { \
+				if (helpMessage) { \
+					print "\n                     "helpMessage"\n" \
+				} \
+				helpMessage = ""; \
+			} \
+		}' \
+		$(MAKEFILE_LIST)
