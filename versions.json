@@ -1,0 +1,58 @@
+{
+  "images": [
+    {
+      "id": "m2.4.4-p3-php8.1",
+      "tag": "m2.4-php8.1",
+      "php_version": "8.1",
+      "magento_version": "2.4.4-p3",
+      "mcrypt_version": "1.0.6",
+      "sodium_from_source": true,
+      "extra_extensions": []
+    },
+    {
+      "id": "m2.4.6-p3-php8.2",
+      "tag": "m2.4.6-php8.2",
+      "php_version": "8.2",
+      "magento_version": "2.4.6-p3",
+      "mcrypt_version": "1.0.6",
+      "sodium_from_source": true,
+      "extra_extensions": []
+    },
+    {
+      "id": "m2.4.7-php8.2",
+      "tag": "m2.4.7",
+      "php_version": "8.2",
+      "magento_version": "2.4.7",
+      "mcrypt_version": "1.0.6",
+      "sodium_from_source": false,
+      "extra_extensions": []
+    },
+    {
+      "id": "m2.4.7-p5-php8.3",
+      "tag": "m2.4.7-p5",
+      "php_version": "8.3",
+      "magento_version": "2.4.7-p5",
+      "mcrypt_version": "1.0.7",
+      "sodium_from_source": false,
+      "extra_extensions": []
+    },
+    {
+      "id": "m2.4.8-php8.4",
+      "tag": "m2.4.8-php8.4",
+      "php_version": "8.4",
+      "magento_version": "2.4.8",
+      "mcrypt_version": null,
+      "sodium_from_source": false,
+      "extra_extensions": ["ftp"]
+    },
+    {
+      "id": "m2.4.8-p4-php8.4",
+      "tag": "m2.4.8-p4-php8.4",
+      "php_version": "8.4",
+      "magento_version": "2.4.8-p4",
+      "mcrypt_version": null,
+      "sodium_from_source": false,
+      "extra_extensions": ["ftp"]
+    }
+  ]
+}

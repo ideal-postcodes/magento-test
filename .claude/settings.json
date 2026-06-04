@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "make help",
+      "make build-*",
+      "docker buildx ls"
+    ],
+    "deny": [
+      "make publish-*",
+      "docker push *"
+    ]
+  }
+}
