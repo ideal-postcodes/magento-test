@@ -40,6 +40,16 @@ build-247-p5:
 publish-247-p5:
 	docker push idealpostcodes/magento-test:m2.4.7-p5
 
+## Build Magento 2.4.8-p4 on PHP 8.3
+.PHONY: build-83
+build-83:
+	docker build -f 8.3/Dockerfile -t idealpostcodes/magento-test:m2.4.8-p4-php8.3 .
+
+## Publish Magento 2.4.8-p4 on PHP 8.3 (amd64 and arm64)
+.PHONY: publish-83
+publish-83:
+	docker buildx build --platform linux/amd64,linux/arm64 -f 8.3/Dockerfile -t idealpostcodes/magento-test:m2.4.8-p4-php8.3 --push .
+
 ## Build Magento 2.4.8 on PHP 8.4
 .PHONY: build-84
 build-84:
